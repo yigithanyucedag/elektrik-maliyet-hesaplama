@@ -1,39 +1,33 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
-import { addRow } from "../features/table/tableSlice";
+import { updateRow } from "../features/table/tableSlice";
 import TableRow from "./TableRow";
 
 export default function Table() {
-  const items = useSelector((state: RootState) => state.table);
   const dispatch = useDispatch();
+  const items = useSelector((state: RootState) => state.table);
+
   return (
     <div className="overflow-x-auto w-full">
-      <div className="mx-2 mb-4 flex items-center justify-end">
-        <button
-          onClick={() => {
-            dispatch(
-              addRow({
-                deviceName: "",
-                watt: "" as any,
-                amount: 1,
-                workingHours: 1,
-                weeklyUsage: 1,
-              })
-            );
-          }}
-          className="btn btn-primary btn-sm"
-        >
-          Cihaz Ekle
-        </button>
-      </div>
       <table className="table-normal table-zebra w-full">
         <thead>
           <tr>
             <th>
-              <label>
-                <input type="checkbox" className="checkbox" />
-              </label>
+              <input
+                type="checkbox"
+                checked={
+                  items.length > 0 && items.every((item) => item.selected)
+                }
+                onChange={(event) => {
+                  for (let item of items) {
+                    dispatch(
+                      updateRow({ ...item, selected: event.target.checked })
+                    );
+                  }
+                }}
+                className="checkbox"
+              />
             </th>
             <th>Cihaz Adı</th>
             <th>Güç (Watt)</th>
