@@ -121,6 +121,7 @@ const Home: NextPage = () => {
       <a
         href="https://github.com/yigithanyucedag/elektrik-maliyet-hesaplama"
         target="_blank"
+        rel="noreferrer"
         className="text-base-500 group mt-12 flex items-center gap-3"
       >
         <svg
