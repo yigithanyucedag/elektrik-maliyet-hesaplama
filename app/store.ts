@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import tableReducer from "../features/table/tableSlice";
+import priceReducer from "../features/price/priceSlice";
 
 export const store = configureStore({
   reducer: {
     table: tableReducer,
+    price: priceReducer,
   },
 });
 
