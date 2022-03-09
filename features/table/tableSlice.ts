@@ -1,22 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface TableState {
-  index?: number;
+  id: number;
+  selected: boolean;
   deviceName: string;
-  watt: number;
-  amount: number;
-  workingHours: number;
-  weeklyUsage: number;
+  watt: string;
+  amount: string;
+  workingHours: string;
+  weeklyUsage: string;
 }
 
 const initialState: TableState[] = [
   {
-    index: 0,
+    id: -1,
+    selected: false,
     deviceName: "Ampül (Örnek)",
-    watt: 60,
-    amount: 3,
-    workingHours: 5,
-    weeklyUsage: 7,
+    watt: "60",
+    amount: "3",
+    workingHours: "5.5",
+    weeklyUsage: "7",
   },
 ];
 
@@ -24,20 +26,16 @@ export const tableSlice = createSlice({
   name: "table",
   initialState,
   reducers: {
-    //add row by user input
     addRow: (state, action: PayloadAction<TableState>) => {
-      state.push({ ...action.payload, index: state.length });
+      state.push(action.payload);
     },
-    //delete row by user input
     deleteRow: (state, action: PayloadAction<TableState>) => {
-      //@ts-ignore
-      state.splice(action.payload, 1);
+      const index = state.findIndex((row) => row.id === action.payload.id);
+      state.splice(index, 1);
     },
-    //update row by user input
     updateRow: (state, action: PayloadAction<TableState>) => {
-      if (action.payload.index !== undefined) {
-        state[action.payload.index] = action.payload;
-      }
+      let objIndex = state.findIndex((obj) => obj.id == action.payload.id);
+      state[objIndex] = action.payload;
     },
   },
 });
