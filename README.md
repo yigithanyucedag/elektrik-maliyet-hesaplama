@@ -8,6 +8,7 @@
 
 - Typescript
 - React.js
+- Redux
 - Next.js
 - Tailwind CSS
 - Daisy UI
